@@ -15,7 +15,7 @@ Pour en créer un il faut d'abord hériter de React.Component
     export default MaClasse
 
 ```
-Pour retourner du jsx dans un classComponent j'ai besoin de la fonction `render`,  (alors que dans un functionComponent, un render simple suffit).
+Pour retourner du jsx dans un classComponent j'ai besoin de la fonction `render`,  (alors que dans un functionComponent, un return simple suffit).
 
 Pour qu'il puisse hériter de React.Component, un classComponent a besoin d'un constructor : 
 
