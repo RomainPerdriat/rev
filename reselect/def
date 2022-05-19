@@ -1,0 +1,46 @@
+Reselect est une library pour redux. 
+On s'en sert pour produire simplement le résultat de deux contenu différent.
+Par exemple, j'ai un reducer qui contient tout mes post, et un second qui contient uniquement l'id des posts selectionnés. 
+Et bien je vais vouloir afficher le résultat des deux, c'est à dire que en partant de mon reducer des postes selectionnées, je vais vouloir récupérer le contenu de ces postes, donc passer par le premier reducer qui contient tous les postes (et donc les contenu).
+En fait ça ressemble en quelque sorte à une table de jointure.
+
+On crée un dossier appelé `selectors` dans lequel on créera un fichier select par besoin
+
+```js
+import { createSelector } from 'reselect';
+
+//Ici j'ai tout mes posts existants
+ const postsSelector = state => state.posts;
+ //ici je n'ai que mes posts selectionnés.
+ const selectedPostsSelector = state => state.selectedPostIds;
+
+ //Maintenant je veux créer une fonction qui utilisera mes deux const et créera la "différence"
+const getPosts = (posts, selectedPostIds) => {
+    const selectedPosts = _.filter (
+        posts,
+        post => _.contains (selectedPostIds, post.id)
+    );
+
+return selectedPosts;
+//Le retour ici me permettra de récupérer le résultat des la fonctions getPosts
+};
+export default createSelector (
+    postsSelector,//pick off a piece of state
+    selectedPostsSelector,//pick off a piece of state
+    getPosts //last argument is the function that has our logic
+);
+```
+
+Il ne me reste plus qu'a créer un nouveau component qui me servira à récupérer le résultat ainsi obtenu.
+Dans celui ci je n'aurai besoin que de récupérer mes données et de faire un .map dessus
+
+```js
+
+    posts.map((post) => {
+        key = {post.id},
+        name = {post.name}
+
+    } )
+
+
+```
